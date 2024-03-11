@@ -19,5 +19,4 @@ export default function LoginSys() {
             data
         });
     }, [data, error, isLoading]);
-    return;
 }
