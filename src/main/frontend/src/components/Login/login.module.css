@@ -1,0 +1,13 @@
+.background {
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    padding: 30px;
+    background: linear-gradient(180deg, rgba(105,237,41,0.5) 0%, rgba(118,182,195,0.5) 100%);
+
+    box-sizing: border-box;
+}

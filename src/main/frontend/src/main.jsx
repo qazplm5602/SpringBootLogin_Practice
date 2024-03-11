@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './components/Redux/Store';
 
 import Index from './components/Index/Index';
+import Login from './components/Login/Login';
 import LoginSys from './components/Redux/LoginSys';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </Provider>
