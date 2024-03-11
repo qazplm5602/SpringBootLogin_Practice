@@ -18,6 +18,6 @@ export default function Index() {
             {(!login.load) && (login.logined ? <>Welcome! <span className={style.name}>{login.name}</span> user</> : "Please, Login U!")}
         </span>
 
-        <Button icon={"asdad"} text={"ㅁㄴㅇ"} />
+        <Button icon={"asdad"} text={"ㅁㄴㅇ"} style={{display: "block"}} />
     </Background>;
 }
