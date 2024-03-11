@@ -5,5 +5,11 @@ const defaultStore = {
 }
 
 export default function(store = defaultStore, action) {
-    return store;
+    if (action !== "login.update") // 그냥 데이터만 줭
+        return store;
+
+    const newStore = {...store}; // 불변성 ㅁㄴㅇㄹ
+    
+    
+    return newStore;
 }

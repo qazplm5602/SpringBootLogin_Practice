@@ -6,10 +6,13 @@ import { Provider } from 'react-redux';
 import store from './components/Redux/Store';
 
 import Index from './components/Index/Index';
+import LoginSys from './components/Redux/LoginSys';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
+      {/* LoginSys가 로그인 되어있는지 체크 해줌 */}
+      <LoginSys /> 
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

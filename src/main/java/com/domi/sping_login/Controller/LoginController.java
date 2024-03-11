@@ -35,11 +35,12 @@ public class LoginController {
     Map<String, Object> MyLogin(HttpServletRequest request,  HttpServletResponse response) {
         User user = userService.GetUser(request);
         if (user == null) {
-            response.setStatus(401);
-            return Map.of();
+//            response.setStatus(401);
+            return Map.of("result", false);
         }
 
         return Map.of(
+            "result", true,
             "id", user.getId(),
             "name", user.getName()
         );
