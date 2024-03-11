@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import style from './index.module.css';
 import Background from "../Recycle/BackgroundBox";
+import Button from "../Recycle/Button";
 
 export default function Index() {
     const login = useSelector(value => value.login);
@@ -16,5 +17,7 @@ export default function Index() {
             {login.load && "loading..."}
             {(!login.load) && (login.logined ? <>Welcome! <span className={style.name}>{login.name}</span> user</> : "Please, Login U!")}
         </span>
+
+        <Button icon={"asdad"} text={"ㅁㄴㅇ"} />
     </Background>;
 }
