@@ -11,3 +11,7 @@
 
     box-sizing: border-box;
 }
+
+.loginSection > h1 {
+    margin: 0;
+}
