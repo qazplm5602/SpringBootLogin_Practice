@@ -36,7 +36,8 @@ public class LoginController {
 
     @GetMapping("/my")
     Map<String, Object> MyLogin(HttpServletRequest request,  HttpServletResponse response) {
-        User user = userService.GetUser(request);
+//        User user = userService.GetUser(request);
+        User user = jwtService.GetLoginedUser(request);
         if (user == null) {
 //            response.setStatus(401);
             return Map.of("result", false);
