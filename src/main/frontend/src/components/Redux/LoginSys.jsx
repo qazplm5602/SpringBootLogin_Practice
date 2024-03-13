@@ -3,7 +3,12 @@ import { useDispatch } from "react-redux";
 import useSWR from "swr";
 
 const fetcher = function(url) {
-    return fetch(url).then(data => {
+    const headers = {};
+    const auth = localStorage.getItem("domiAuth");
+    if (auth !== null)
+        headers.Authorization = `Bearer ${auth}`;
+
+    return fetch(url, {headers}).then(data => {
         return data.json();
     });
 }
