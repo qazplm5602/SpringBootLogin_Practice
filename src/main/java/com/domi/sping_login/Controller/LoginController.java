@@ -1,6 +1,8 @@
 package com.domi.sping_login.Controller;
 
 import com.domi.sping_login.Repository.User;
+import com.domi.sping_login.Service.JwtDTO;
+import com.domi.sping_login.Service.JwtService;
 import com.domi.sping_login.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +32,7 @@ class JoinRequest {
 @RequiredArgsConstructor
 public class LoginController {
     final UserService userService;
+    final JwtService jwtService;
 
     @GetMapping("/my")
     Map<String, Object> MyLogin(HttpServletRequest request,  HttpServletResponse response) {
@@ -47,16 +50,19 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    void Login(@Valid @RequestBody JoinRequest data, HttpServletRequest request, HttpServletResponse response) {
+    JwtDTO Login(@Valid @RequestBody JoinRequest data, HttpServletRequest request, HttpServletResponse response) {
         User user = userService.GetUser(data.id);
         if (user == null || !Objects.equals(user.getPassword(), data.password)) {
             response.setStatus(403);
-            return;
+            return null;
         }
 
-        HttpSession session = request.getSession();
-        session.setAttribute("userId", user.getId());
-        response.setStatus(201);
+        var token = jwtService.CreateToken(user.getId());
+//        HttpSession session = request.getSession();
+//        session.setAttribute("userId", user.getId());
+//        response.setStatus(201);
+
+        return token;
     }
 
     @GetMapping("/logout")
