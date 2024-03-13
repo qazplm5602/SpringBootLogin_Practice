@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import style from './index.module.css';
+import loginStyle from './login.module.css';
 import Background from "../Recycle/BackgroundBox";
 import Button from "../Recycle/Button";
 import { Link } from "react-router-dom";
+import Section from "../Recycle/Section";
 
 export default function Index() {
     const login = useSelector(value => value.login);
@@ -22,5 +24,15 @@ export default function Index() {
         <Link style={{textDecorationLine: "none"}} to={"/login"}>
             <Button text={"로그인"} className={style.loginBtn} style={{display: "block"}} />
         </Link>
+
+        <LoginBox />
+    </Background>;
+}
+
+function LoginBox() {
+    return <Background className={loginStyle.background}>
+        <Section title="로그인" isContainer={true} className={loginStyle.loginSection}>
+
+        </Section>
     </Background>;
 }
