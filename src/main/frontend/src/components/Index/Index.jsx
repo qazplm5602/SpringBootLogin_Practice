@@ -35,7 +35,9 @@ function LoginBox() {
         <Section title="로그인" isContainer={true} className={loginStyle.loginSection}>
             <Input className={loginStyle.inputContainer} title="아이디" placeholder="아이디를 입력해주세요." type="text" />
             <Input className={loginStyle.inputContainer} title="비밀번호" placeholder="비밀번호를 입력해주세요." type="password" />
-            <Button className={loginStyle.btn} text="로그인" />
+
+            <span className={loginStyle.errorT}>가나다라마바사</span>
+            <Button className={loginStyle.btn} text="로그인" disabled />
         </Section>
     </Background>;
 }

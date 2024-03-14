@@ -104,4 +104,33 @@
 
 .loginSection .btn {
     position: relative;
+    
+    border-radius: 5px;
+    padding: 6px 10px;
+    border: none;
+
+    cursor: pointer;
+    
+    font-weight: 600;
+
+    color: white;
+    background-color: rgb(109, 207, 63);
+
+    transition: color 250ms, background-color 250ms;
+}
+
+.loginSection .btn:disabled {
+    color: gray;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.loginSection .errorT {
+    font-size: 13px;
+    font-weight: 400;
+
+    color: rgb(255, 109, 109);
+
+    margin-bottom: 5px;
+
+    display: block;
 }
