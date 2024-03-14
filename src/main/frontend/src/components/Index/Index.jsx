@@ -38,9 +38,25 @@ function LoginBox({showState}) {
     const [none, setNone] = useState(!showState[0]);
     const [show, setShow] = useState(showState[0]);
 
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [btnDisable, setBtnDisable]= useState(false);
+
+    const [errorT, setErrorT] = useState("");
+
     const bgClass = [loginStyle.background];
     if (!show)
         bgClass.push(loginStyle.hide);
+
+    const bgClick = function() {
+        showState[1](false);
+    }
+    const boxClick = function(e) {
+        e.stopPropagation();
+    }
+    const loginClick = function() {
+        console.log("loginClick");
+    }
 
     useEffect(() => {
         if (waitHandler.current)
@@ -50,7 +66,7 @@ function LoginBox({showState}) {
             setNone(false);
             waitHandler.current = setTimeout(() => {
                 setShow(true);
-            }, 10);
+            }, 20);
         } else {
             setShow(false);
             waitHandler.current = setTimeout(() => {
@@ -59,15 +75,19 @@ function LoginBox({showState}) {
         }
     }, [showState[0]]);
 
+    useEffect(() => {
+        setBtnDisable(id.length == 0 || password.length == 0);
+    }, [id, password]);
+
     if (none) return;
 
-    return <Background className={bgClass.join(" ")}>
-        <Section title="로그인" isContainer={true} className={loginStyle.loginSection}>
-            <Input className={loginStyle.inputContainer} title="아이디" placeholder="아이디를 입력해주세요." type="text" />
-            <Input className={loginStyle.inputContainer} title="비밀번호" placeholder="비밀번호를 입력해주세요." type="password" />
+    return <Background className={bgClass.join(" ")} onClick={bgClick}>
+        <Section title="로그인" isContainer={true} onClick={boxClick} className={loginStyle.loginSection}>
+            <Input className={loginStyle.inputContainer} value={id} onChange={e => setId(e.target.value)} title="아이디" placeholder="아이디를 입력해주세요." type="text" />
+            <Input className={loginStyle.inputContainer} value={password} onChange={e => setPassword(e.target.value)} title="비밀번호" placeholder="비밀번호를 입력해주세요." type="password" />
 
-            <span className={loginStyle.errorT}>가나다라마바사</span>
-            <Button className={loginStyle.btn} text="로그인" disabled />
+            <span className={loginStyle.errorT}>{errorT}</span>
+            <Button className={loginStyle.btn} text="로그인" onClick={loginClick} disabled={btnDisable} />
         </Section>
     </Background>;
 }
