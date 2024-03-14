@@ -5,6 +5,7 @@ import Background from "../Recycle/BackgroundBox";
 import Button from "../Recycle/Button";
 import { Link } from "react-router-dom";
 import Section from "../Recycle/Section";
+import Input from "../Recycle/Input";
 
 export default function Index() {
     const login = useSelector(value => value.login);
@@ -30,9 +31,11 @@ export default function Index() {
 }
 
 function LoginBox() {
-    return <Background className={loginStyle.background}>
+    return <Background className={[loginStyle.background].join(" ")}>
         <Section title="로그인" isContainer={true} className={loginStyle.loginSection}>
-
+            <Input className={loginStyle.inputContainer} title="아이디" placeholder="아이디를 입력해주세요." type="text" />
+            <Input className={loginStyle.inputContainer} title="비밀번호" placeholder="비밀번호를 입력해주세요." type="password" />
+            <Button className={loginStyle.btn} text="로그인" />
         </Section>
     </Background>;
 }
