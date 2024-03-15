@@ -20,6 +20,12 @@ export default function Index() {
         textClass.push(style.wait);
     }
 
+    const logoutBtn = function() {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        mutate("/api/v1/my");
+    }
+
     return <Background className={style.background}>
         <span className={textClass.join(" ")}>
             {login.load && "loading..."}
@@ -27,7 +33,7 @@ export default function Index() {
         </span>
 
         {/* <Link style={{textDecorationLine: "none"}} to={"/login"}> */}
-            <Button text={"로그인"} className={style.loginBtn} style={{display: "block"}} onClick={() => SetLoginShow(true)} />
+            <Button text={`로그${login.logined ? "아웃" : "인"}`} className={style.loginBtn} style={{display: "block"}} onClick={() => (login.logined ? logoutBtn() : SetLoginShow(true))} />
         {/* </Link> */}
 
         <LoginBox showState={[loginShow, SetLoginShow]} />
