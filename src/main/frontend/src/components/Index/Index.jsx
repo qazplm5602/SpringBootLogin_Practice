@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Section from "../Recycle/Section";
 import Input from "../Recycle/Input";
 import { useEffect, useRef, useState } from "react";
+import { mutate } from 'swr';
 
 export default function Index() {
     const login = useSelector(value => value.login);
@@ -57,12 +58,16 @@ function LoginBox({showState}) {
     const boxClick = function(e) {
         e.stopPropagation();
     }
-    const loginClick = function() {
+    const loginClick = async function() {
         if (allStop) return;
 
         SetAllStop(true);
-        const data = fetch("/api/v1/login", {
+        setErrorT("");
+        const data = await fetch("/api/v1/login", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 id,
                 password
@@ -75,10 +80,16 @@ function LoginBox({showState}) {
             return;
         }
 
+        console.log(data);
         if (!data.result) {
             setErrorT(data.content);
             return;
         }
+
+        bgClick();
+        localStorage.setItem("accessToken", data.tokens.accessToken);
+        localStorage.setItem("refreshToken", data.tokens.refreshToken);
+        mutate("/api/v1/my");
     }
 
     useEffect(() => {

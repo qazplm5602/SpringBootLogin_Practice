@@ -27,22 +27,37 @@ public class JwtService {
         this.userService = userService;
     }
 
-    public JwtDTO CreateToken(String id) {
+    public JwtDTO CreateToken(String id, Boolean ignoreRefresh) {
         Date nowTime = new Date();
 
         // 액세스 토큰
         String access = Jwts.builder()
                 .setSubject(id)
 //                .claim("auth", authorities)
-                .setExpiration(new Date(nowTime.getTime() + 86400000))
+                .setExpiration(new Date(nowTime.getTime() + 30000))
                 .signWith(Key)
                 .compact();
 
+        String refresh = null;
+
+        if (!ignoreRefresh) {
+            refresh = Jwts.builder()
+                .setSubject(id)
+                .setExpiration(new Date(nowTime.getTime() + 3_600_000))
+                .signWith(Key)
+                .compact();
+        }
+
+
         JwtDTO dto = new JwtDTO();
         dto.accessToken = access;
-        dto.refreshToken = access;
+        dto.refreshToken = refresh;
 
         return dto;
+    }
+
+    public JwtDTO CreateToken(String id) {
+        return CreateToken(id, false);
     }
 
     public String GetUserIdForToken(String token) throws SignatureException {
@@ -59,7 +74,7 @@ public class JwtService {
 
     public User GetLoginedUser(HttpServletRequest request) {
         String headAuth = request.getHeader("Authorization");
-        if (!headAuth.contains("Bearer ")) return null; // 뭐임 토큰 어디감
+        if (headAuth == null || !headAuth.contains("Bearer ")) return null; // 뭐임 토큰 어디감
 
         String token = headAuth.substring(7);
         String userId = GetUserIdForToken(token);
